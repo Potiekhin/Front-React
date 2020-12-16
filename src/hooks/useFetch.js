@@ -28,16 +28,14 @@ export default (url) => {
                 }
             }
         }
-        console.log(requestOptions);
+        // console.log(requestOptions);
         fetch(baseUrl + url, requestOptions)
             .then(response => response.json())
             .then(res => {
-                console.log(res);
                 setResponse(res)
                 setIsLoading(false)
             })
             .catch(response => {
-                console.log(response);
                 setIsLoading(false)
                 setError(response)
             });
