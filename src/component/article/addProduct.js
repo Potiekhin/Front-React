@@ -7,6 +7,7 @@ import MyInput from "./myInput";
 import AddIMG from "./addIMG";
 import useFetch from "../../hooks/useFetch";
 import {CurrentUserContext} from "../../contexts/currentUser";
+import MyTextArea from "./myTextArea";
 
 export default function AddProduct(props) {
     const apiUrl = `/product/${props.subCategory_id}`
@@ -20,6 +21,8 @@ export default function AddProduct(props) {
     const refName = useRef('')
     const refPrice = useRef('')
     const refQuantity = useRef('')
+    const refTitle = useRef('')
+    const refDescription = useRef('')
     const [state, setState] = useContext(CurrentUserContext)
 
     const handleClose = () => {
@@ -34,6 +37,8 @@ export default function AddProduct(props) {
         formData.append('name', refName.current.value)
         formData.append('price', refPrice.current.value)
         formData.append('quantity', refQuantity.current.value)
+        formData.append('title', refTitle.current.value)
+        formData.append('description', refDescription.current.value)
         formData.append('img', img)
         doFetch({method: 'POST', body: formData})
         console.log('refname', refName.current.value)
@@ -107,6 +112,18 @@ export default function AddProduct(props) {
                                 type='text'
                                 name='quantity'
                                 placeholder='add Product Quantity'
+                            />
+                            <MyInput
+                                forwardRef={refTitle}
+                                type='text'
+                                name='title'
+                                placeholder='add Product Title'
+                            />
+                            <MyTextArea
+                                forwardRef={refDescription}
+                                type='text'
+                                name='description'
+                                placeholder='add Product Description'
                             />
                             <AddIMG
                                 type='file'

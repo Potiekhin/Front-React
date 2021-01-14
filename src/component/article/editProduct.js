@@ -8,6 +8,7 @@ import MyInput from "./myInput";
 import AddIMG from "./addIMG";
 import useFetch from "../../hooks/useFetch";
 import {CurrentUserContext} from "../../contexts/currentUser";
+import MyTextArea from "./myTextArea";
 
 export default function EditProduct(props) {
     const apiUrl = `/product/change_product/${props.product_id}`
@@ -20,6 +21,8 @@ export default function EditProduct(props) {
     const refName = useRef('')
     const refPrice = useRef('')
     const refQuantity = useRef('')
+    const refTitle = useRef('')
+    const refDescription = useRef('')
     const [state, setState] = useContext(CurrentUserContext)
     const [editColor, setEditColor] = useState(false)
     const [show, setShow] = useState(false)
@@ -38,6 +41,8 @@ export default function EditProduct(props) {
         formData.append('name', refName.current.value)
         formData.append('price', refPrice.current.value)
         formData.append('quantity', refQuantity.current.value)
+        formData.append('title', refTitle.current.value)
+        formData.append('description', refDescription.current.value)
         img && formData.append('img', img)
         doFetch({method: 'PUT', body: formData})
 
@@ -115,6 +120,19 @@ export default function EditProduct(props) {
                                 name='quantity'
                                 placeholder='add Product Quantity'
                                 defaultValue={props.product_data.quantity}
+                            />
+                            <MyInput
+                                forwardRef={refTitle}
+                                type='text'
+                                name='title'
+                                placeholder='add Product Title'
+                                defaultValue={props.product_data.title}
+                            />
+                            <MyTextArea
+                                forwardRef={refDescription}
+                                type='text'
+                                name='description'
+                                defaultValue={props.product_data.description}
                             />
                             <AddIMG
                                 type='file'

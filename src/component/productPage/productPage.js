@@ -24,51 +24,45 @@ function ProductPage() {
         <h2 className="py-5">{`${product.brand.name} ${product.name} ${product.color.name}`}</h2>
 
         <Row lg={2} md={1}>
-          <div>
-            <img src={baseUrl + product.img} />
-          </div>
-          <div>
             <div>
-              {product.quantity > 5 && (
-                <h6 className="text-success">
-                  <CheckCircleIcon /> Available
-                </h6>
-              )}
-              {product.quantity <= 5 && product.quantity > 0 && (
-                <h6 className="text-warning">
-                  <CheckCircleIcon />
-                  Ends
-                </h6>
-              )}
-              {product.quantity < 1 && (
-                <h6 className="text-danger">
-                  <ClearIcon />
-                  Not available
-                </h6>
-              )}
+              <img alt='' className='w-100' src={baseUrl + product.img} />
             </div>
-            <Row>
-              <Col className="col-4">
-                <h2 className="text-danger">{product.price} ₴</h2>
-              </Col>
-              <Col className="col">
-                <button className="btn btn-success">
-                  <ShoppingCartIcon /> Buy
-                </button>
-              </Col>
-            </Row>
             <div>
-              <h4 className="py-2">Description</h4>
-              some text some text some text some text some text some text some
-              text some text some text some text some text some text some text
-              some text some text some text some text some text some text some
-              text some text some text some text some text some text some text
-              some text some text some text some text some text some text some
-              text some text some text some text some text some text some text
-              some text some text some text some text some text some text some
-              text some text some textг
+              <div>
+                {product.quantity > 5 && (
+                    <h6 className="text-success">
+                      <CheckCircleIcon /> Available
+                    </h6>
+                )}
+                {product.quantity <= 5 && product.quantity > 0 && (
+                    <h6 className="text-warning">
+                      <CheckCircleIcon />
+                      Ends
+                    </h6>
+                )}
+                {product.quantity < 1 && (
+                    <h6 className="text-danger">
+                      <ClearIcon />
+                      Not available
+                    </h6>
+                )}
+              </div>
+              <Row>
+                <Col className="col-4">
+                  <h2 className="text-danger">{product.price} ₴</h2>
+                </Col>
+                <Col className="col">
+                  <button className="btn btn-success">
+                    <ShoppingCartIcon /> Buy
+                  </button>
+                </Col>
+              </Row>
+              <div>
+                <h4 className="py-2">Description</h4>
+                {product.description}
+              </div>
             </div>
-          </div>
+
         </Row>
       </div>
     </>

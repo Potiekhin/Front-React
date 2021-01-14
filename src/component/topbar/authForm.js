@@ -27,7 +27,7 @@ export default function AuthForm() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleFinalSubmit = (event) => {
+    const handleFinalSubmit = () => {
 
         const user = isLoginState ?
             {
@@ -103,7 +103,7 @@ export default function AuthForm() {
                                           onChange={event => setUsername(event.target.value)}
                                           ref={register({
                                               required: 'логин не может быть пустой',
-                                              minLength: 5,
+                                              minLength: 2,
                                               maxLength: 20
                                           })}
                             />
@@ -178,21 +178,13 @@ export default function AuthForm() {
                                 <Form.Label>Номер Телефона</Form.Label>
                                 <IntlTelInput
                                     preferredCountries={['UA', 'US', 'GB']}
-                                    defaultValue={'+380 '}
-                                    paginate={4}
+                                    defaultValue={'+380'}
+                                    paginate={0}
                                     placeholder={'Search for a calling code by country'}
                                     validMessage={'This phone number is valid'}
                                     onChange={data => setPhone(data.phoneNumber)}
                                 />
-                                {/*<PhoneInput*/}
-                                {/*    placeholder="Enter phone number"*/}
-                                {/*    value={phone}*/}
-                                {/*    onChange={event => setPhone(event.target.value)}/>*/}
-                                {/*<Form.Control type="phone"*/}
-                                {/*              placeholder="Номер Телефона"*/}
-                                {/*              value={phone}*/}
-                                {/*              onChange={event => setPhone(event.target.value)}*/}
-                                {/*/>*/}
+
                             </Form.Group>
                         }
                     </Form>
@@ -208,7 +200,7 @@ export default function AuthForm() {
                         {
                             isLoading ?
                                 <span className="spinner-border spinner-border-sm" role="status"
-                                      aria-hidden="true"></span>
+                                      aria-hidden="true"> </span>
                                 : ''
                         }
                         {isLoading ? 'Loading...' : 'Отправить'}

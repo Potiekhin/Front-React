@@ -15,7 +15,9 @@ function TopBar() {
   const token = localStorage.getItem("token");
 
   const handleSubmitLogOut = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem('token')
+    localStorage.removeItem('refresh')
     setState((state) => ({
       ...state,
       isLoggedIn: false,
