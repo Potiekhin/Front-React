@@ -6,6 +6,7 @@ import { CurrentUserContext } from "../../contexts/currentUser";
 import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Cart from "./cart";
 
 function TopBar() {
   const [tokenValid, setTokenValid] = useState(true);
@@ -77,12 +78,7 @@ function TopBar() {
             Log Out
           </Button>
         )}
-        <div className="pl-3">
-          <Button className="pl-2" variant="outline-secondary">
-            <small className="text-danger">1</small>
-            <ShoppingCartIcon />
-          </Button>
-        </div>
+        <Cart/>
       </Navbar.Collapse>
     </Navbar>
   );
