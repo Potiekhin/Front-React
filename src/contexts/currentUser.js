@@ -14,7 +14,8 @@ export const CurrentUserProvider = ({children}) => {
         editSubCategory: false,
         productId: null,
         updateGetProperties: false,
-        updateProductList: false
+        updateProductList: false,
+        userId: null
     })
 
     return (

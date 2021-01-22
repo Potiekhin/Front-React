@@ -41,7 +41,6 @@ export default function AddProduct(props) {
         formData.append('description', refDescription.current.value)
         formData.append('img', img)
         doFetch({method: 'POST', body: formData})
-        console.log('refname', refName.current.value)
     }
     useEffect(() => {
         response !== undefined && response !== null && setState(state => ({
@@ -49,7 +48,6 @@ export default function AddProduct(props) {
             updateProductList: !state.updateProductList
 
         }))
-        console.log(response)
     }, [response])
 
     return (

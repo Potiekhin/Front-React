@@ -8,12 +8,12 @@ import EditProduct from "./editProduct";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {productAction} from "../../redux/actions/product-action";
-import {withMobileDialog} from "@material-ui/core";
+import {addToCartAction} from "../../redux/actions/cart-action";
 
 function CardList(props) {
-    const [state, setState] = useContext(CurrentUserContext);
+    const [setState] = useContext(CurrentUserContext);
     const apiUrl = `/product/change_product/${props.product_id}`;
-    const [{isLoading, response}, doFetch] = useFetch(apiUrl);
+    const [{response}, doFetch] = useFetch(apiUrl);
     const [style, setStyle] = useState(true);
     const [trashColor, setTrashColor] = useState(false);
     const [editColor, setEditColor] = useState(false);
@@ -48,14 +48,10 @@ function CardList(props) {
     const toggleEditColor = () => {
         setEditColor(!editColor);
     };
-    const toggleCartColor = () => {
-        setCartColor(!cartColor);
+    const setToCart = () => {
+        setCartColor(true);
+        dispatch(addToCartAction(props))
     };
-
-
-    cartColor && localStorage.setItem(`${props.specifications.id}`, '1')
-
-    !cartColor && localStorage.getItem(`${props.specifications.id}`) && localStorage.removeItem(`${props.specifications.id}`)
 
 
     return (
@@ -115,10 +111,14 @@ function CardList(props) {
                 <Card.Footer>
                     <div className="d-flex justify-content-between">
                         <small className="text-danger d-flex">price {price} ₴ </small>
-                        <ShoppingCart
-                            className={cartColor ? "text-success" : ""}
-                            onClick={toggleCartColor}
-                        />
+                        <button style={{border: 'none', backgroundColor: 'transparent'}} onClick={setToCart}
+                                disabled={cartColor}>
+                            <ShoppingCart
+                                className={cartColor ? "text-success" : ""}
+
+                            />
+                        </button>
+
                     </div>
                     {quantity > 5 && <small className="text-success">Available</small>}
                     {quantity <= 5 && quantity > 0 && (

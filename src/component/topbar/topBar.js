@@ -21,7 +21,7 @@ function TopBar() {
     localStorage.removeItem('refresh')
     setState((state) => ({
       ...state,
-      isLoggedIn: false,
+      isLoggedIn: false, userId: null
     }));
   };
   useEffect(() => {
@@ -33,6 +33,7 @@ function TopBar() {
     if (response !== null && response.access) {
       localStorage.setItem("token", response.access);
       setTokenValid(true);
+
     }
     if (apiUrl === "/token/refresh/" && response !== null && response.code) {
       handleSubmitLogOut();
@@ -44,6 +45,7 @@ function TopBar() {
       setState((state) => ({
         ...state,
         isLoggedIn: true,
+        userId: response.id
       }));
     }
   }, []);
@@ -57,7 +59,7 @@ function TopBar() {
   return (
     <Navbar bg="dark" variant="dark">
       <Link to={"/"}>
-        <Navbar.Brand href="#home">Super Shop</Navbar.Brand>
+        <Navbar.Brand>Super Shop</Navbar.Brand>
       </Link>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">

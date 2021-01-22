@@ -17,7 +17,6 @@ function ProductPage() {
   useEffect(() => {
     dispatch(productAction(url));
   }, []);
-  console.log(product);
   return (
     <>
       <div className="container">

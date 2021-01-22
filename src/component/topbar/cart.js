@@ -1,16 +1,32 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Modal from "react-bootstrap/Modal";
+import {useSelector} from "react-redux";
+import {CurrentUserContext} from "../../contexts/currentUser";
+
 
 function Cart() {
+    const [state, setState] = useContext(CurrentUserContext);
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const cart = useSelector(state=>state.cartReducer.cart)
+    console.log(cart)
+    useEffect(()=>{
+        if(state.isLoggedIn){
+            // get items id from cart, then get products and set it in localStorage
+        }else {
+            if(!localStorage.getItem('cart')){
+                localStorage.setItem('cart', JSON.stringify([]))
+            }
+        }
+    },[state.isLoggedIn])
+
     return (
         <div className="pl-3">
             <Button className="pl-2" variant="outline-secondary" onClick={handleShow}>
-                <small className="text-danger">1</small>
+                <small className="text-danger">{cart !== null &&( cart.length === 0 ? '' : cart.length)}</small>
                 <ShoppingCartIcon/>
             </Button>
             <Modal
@@ -23,6 +39,9 @@ function Cart() {
                     <div>Cart</div>
                 </Modal.Header>
                 <Modal.Body>
+                    {
+                       // cart.length > 0 && cart.map(item=><div>{item.specification.img}</div>)
+                    }
                     <div className='row'>
                         <div className='col-12 col-md-8'>
 
@@ -38,6 +57,7 @@ function Cart() {
                         </div>
 
                     </div>
+
                 </Modal.Body>
                 <Modal.Footer>
                     <div>
