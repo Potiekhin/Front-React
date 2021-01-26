@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Cart from "./cart";
+import AuthForm2 from "./authForm2";
 
 function TopBar() {
   const [tokenValid, setTokenValid] = useState(true);
@@ -16,7 +17,6 @@ function TopBar() {
   const token = localStorage.getItem("token");
 
   const handleSubmitLogOut = () => {
-    // localStorage.clear();
     localStorage.removeItem('token')
     localStorage.removeItem('refresh')
     setState((state) => ({
@@ -28,6 +28,7 @@ function TopBar() {
     if (response !== null && response.code) {
       doFetch({ method: "POST" });
       setTokenValid(false);
+      console.log(response);
     }
 
     if (response !== null && response.access) {
@@ -73,6 +74,7 @@ function TopBar() {
         ) : (
           <div>
             <AuthForm />
+            <AuthForm2 />
           </div>
         )}
         {state.isLoggedIn && (

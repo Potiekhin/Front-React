@@ -15,7 +15,8 @@ export const CurrentUserProvider = ({children}) => {
         productId: null,
         updateGetProperties: false,
         updateProductList: false,
-        userId: null
+        userId: null,
+        // isLoginState: true
     })
 
     return (

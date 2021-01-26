@@ -11,6 +11,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+store.subscribe(() => {
+    localStorage.setItem('cart', JSON.stringify(store.getState().cartReducer.cart))
+})
 
 ReactDOM.render(
   <Provider store={store}>
