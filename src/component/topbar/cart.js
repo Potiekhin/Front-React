@@ -3,7 +3,11 @@ import Button from "react-bootstrap/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Modal from "react-bootstrap/Modal";
 import {useSelector, useDispatch} from "react-redux";
-import {deleteFromCartAction} from "../../redux/actions/cart-action";
+import {
+    addOneAction,
+    deleteFromCartAction,
+    subtractOneAction
+} from "../../redux/actions/cart-action";
 
 function Cart() {
     const [show, setShow] = useState(false)
@@ -11,7 +15,7 @@ function Cart() {
     const handleShow = () => setShow(true);
     const cart = useSelector(state => state.cartReducer.cart)
     const dispatch = useDispatch()
-
+    let totalPrice = 0
     return (
         <div className="pl-3">
             <Button className="pl-2" variant="outline-secondary" onClick={handleShow}>
@@ -29,30 +33,42 @@ function Cart() {
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        cart.length > 0 && cart.map(item =>
-                            <div className='row' key={item.product_id}>
-                                <div className='col-md-7'>
-                                    <img style={{height: '50px'}}
-                                         src="https://i.allo.ua/media/catalog/product/cache/1/image/600x415/602f0fa2c1f0d1ba5e241f914e856ff9/c/o/copy_xiaomi_jyu4191cn_5ebcfa8a65c7a_images_18229147027.jpg"
-                                         alt="no img"/>{item.specifications.title}
-                                </div>
-                                <div className='col-md-5'>
-                                    <button className="btn btn-light">-</button>
-                                    {item.specifications.quantity}
-                                    <button className="btn btn-light">+</button>
-                                    {item.specifications.price}
-                                    <button
-                                        className="btn btn-light"
-                                        onClick={()=>dispatch(deleteFromCartAction(item))}
-                                    >x</button>
-                                </div>
 
-                            </div>)
+                        cart.length === 0 ?
+                            <div className='d-flex justify-content-center'>Cart is empty</div> : cart.map((item) => {
+                                totalPrice += item.specifications.price
+                                return <div className='row' key={item.product_id}>
+                                    <div className='col-md-7'>
+                                        <img style={{height: '50px'}}
+                                             src="https://i.allo.ua/media/catalog/product/cache/1/image/600x415/602f0fa2c1f0d1ba5e241f914e856ff9/c/o/copy_xiaomi_jyu4191cn_5ebcfa8a65c7a_images_18229147027.jpg"
+                                             alt="no img"
+                                        />
+                                        {item.specifications.title}
+                                    </div>
+                                    <div className='col-md-5'>
+                                        <button disabled={item.specifications.quantity < 2 && true  }
+                                                className="btn btn-success"
+                                                onClick={() => dispatch(subtractOneAction(item))}>-
+                                        </button>
+                                        {item.specifications.quantity}
+                                        <button className="btn btn-success" onClick={() => dispatch(addOneAction(item))}>+
+                                        </button>
+                                        {item.specifications.price}
+
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => dispatch(deleteFromCartAction(item))}
+                                        >x
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                            )
                     }
                 </Modal.Body>
                 <Modal.Footer>
                     <div>
-                        Total 10000 ₴ <button className='btn btn-success'>To order</button>
+                        Total {totalPrice}₴ <button className='btn btn-success'>To order</button>
                     </div>
                 </Modal.Footer>
             </Modal>

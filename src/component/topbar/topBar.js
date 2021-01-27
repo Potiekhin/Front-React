@@ -46,9 +46,9 @@ function TopBar() {
       setState((state) => ({
         ...state,
         isLoggedIn: true,
-        userId: response.id
       }));
     }
+
   }, []);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ function TopBar() {
           </Navbar.Text>
         ) : (
           <div>
-            <AuthForm />
+            {/*<AuthForm />*/}
             <AuthForm2 />
           </div>
         )}

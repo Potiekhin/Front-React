@@ -32,7 +32,6 @@ const useForm = (callback, isLoginState) => {
         !isLoginState && setErrors(validateSignUp(values));
         setIsSubmitting(true);
     };
-    console.log('useForm')
     return {
         handleSubmit,
         handleChange,

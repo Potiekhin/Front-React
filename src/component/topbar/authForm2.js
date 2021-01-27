@@ -56,7 +56,6 @@ export default function AuthForm2() {
     }
 
     useEffect(() => {
-        console.log('asdasd');
         if (response != null) {
             if (typeof (response.access) !== 'undefined') {
                 localStorage.setItem('token', response.access)
@@ -74,14 +73,14 @@ export default function AuthForm2() {
     return (
         <>
             <Button variant="outline-secondary" onClick={handleShow}>
-                {isLoginState ? 'Sign In++' : 'Sign Up++'}
+                {isLoginState ? 'Sign In' : 'Sign Up'}
             </Button>
 
             <Modal
                 show={show}
                 onHide={handleClose}
                 backdrop="static"
-                keyboard={false}
+                keyboard={true}
             >
                 <Modal.Header closeButton>
                     <Modal.Title>{isLoginState ? 'Sign In' : 'Sign Up'}{' '}
