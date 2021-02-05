@@ -1,6 +1,5 @@
 export function validateSignIn(values) {
     let errors = {};
-    console.log('SignIn')
     if (!values.login) {
         errors.login = "Login is required";
     }
@@ -16,7 +15,6 @@ export function validateSignIn(values) {
 
 export function validateSignUp(values) {
     let errors = {};
-    console.log('SignUp')
     if (!values.login) {
         errors.login = "Login is required";
     }

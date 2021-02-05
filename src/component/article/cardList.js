@@ -8,17 +8,18 @@ import EditProduct from "./editProduct";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {productAction} from "../../redux/actions/product-action";
-import {addToCartAction} from "../../redux/actions/cart-action";
+import {addToCartAction, addToCartDBAction} from "../../redux/actions/cart-action";
 
 function CardList(props) {
-    const [setState] = useContext(CurrentUserContext);
-    const apiUrl = `/product/change_product/${props.product_id}`;
+    const [state, setState] = useContext(CurrentUserContext);
+    const baseUrl = "http://127.0.0.1:8000";
+    const apiUrl = `/product/change_product/${props.product_id}`
+    const apiUrlCart = `/cart/${state.userId}`
     const [{response}, doFetch] = useFetch(apiUrl);
     const [style, setStyle] = useState(true);
     const [trashColor, setTrashColor] = useState(false);
     const [editColor, setEditColor] = useState(false);
     const [cartColor, setCartColor] = useState(false);
-    const baseUrl = "http://127.0.0.1:8000";
     const color = props.specifications.color.name;
     const brand = props.specifications.brand;
     const img = props.specifications.img;
@@ -50,7 +51,10 @@ function CardList(props) {
     };
     const setToCart = () => {
         setCartColor(true);
-        dispatch(addToCartAction(props))
+        state.userId ? dispatch(addToCartDBAction({
+            'product': props.product_id,
+            'quantity': quantity
+        }, baseUrl + apiUrlCart)) : dispatch(addToCartAction(props))
     };
 
 
